@@ -1,0 +1,13 @@
+spring:
+  application:
+    #服务名称
+    name: user
+
+eureka:
+  client:
+    #服务注册中心的地址
+    service-url:
+      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka/
+  instance:
+    #实例名称
+    hostname: localhost

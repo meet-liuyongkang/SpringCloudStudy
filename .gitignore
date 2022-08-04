@@ -1,0 +1,9 @@
+# 项目排除路径
+/common/target/
+/dashboard/target/
+/eureka-server/target/
+/fund/target/
+/gateway/target/
+/product/target/
+/user/target/
+/zuul/target/

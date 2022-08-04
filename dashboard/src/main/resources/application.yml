@@ -1,0 +1,30 @@
+# 微服务端口
+server:
+  port: 1001
+spring:
+  application:
+    name: dashboard
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka
+  instance:
+    hostname: localhost
+
+#设置数据流的权限
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "*"
+
+turbine:
+  # 指定监控的微服务，多个微服务用,号分隔
+  app-config: product
+  # 指定集群名称，在节点很多的集群种，允许启用多个 turbine ，每个 turbine 可以根据需要配置聚合那些微服务进行监控。（上面配置的app-config）
+  # 访问这个集群监控时，通过这里配置的名称来访问。注意，这里不是字符串，而是表达式。默认值 default
+  cluster-name-expression: new String("default")
+  # 是否允许根据 host:port 来区分服务，如果为false，则只根据 host 来区分节点，那么部署在同一服务器的不同节点，就无法区分，默认true。
+  combine-host-port: true
+  # 指定聚合哪些集群（其他 turbine 实例中的集群名称），多个集群,号分隔，默认值 default
+#  aggregator:
+#    cluster-config: default

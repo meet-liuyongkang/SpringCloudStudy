@@ -1,0 +1,89 @@
+# 定义微服务名称
+spring:
+  application:
+    name: zuul
+  # Redis配置
+  redis:
+    host: 192.168.99.101
+    jedis:
+      # Jedis连接池配置
+      pool:
+        # 最大活跃连接数
+        max-active: 10
+        # 最大等待时间（毫秒）
+        max-wait: 2000
+        # 最小闲置连接数
+        min-idle: 5
+        # 最大闲置连接数
+        max-idle: 8
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka/
+
+
+zuul:
+  routes:
+    # 用户微服务
+    user-service:
+      # 配置请求拦截路径，* 匹配一个层级（/u/user）。** 匹配任意层级（u/user/getUser/1）。？匹配单个字符（u/a，不能u/abc）。
+      path: /u/**
+      # 配置映射到的真实路径，例如：请求路径为 localhost:2001/u/user/getUser, 真实映射路径为：localhost:6001/user/getUser
+      # 但是URL映射存在一个问题，就是URL是一个具体的ip，真实场景中用户服务可能会有多个，
+      # 这时候通过 service-id 来配置，就可以直接映射到整个用户微服务了，也就可以实现服务器端的负载均衡。
+      #url: http://localhost:6001/
+      # 通过服务名映射
+      service-id: user
+    fund-service:
+      # 配置请求拦截路径
+      path: /f/**
+      service-id: fund
+  # 禁用 验证码校验过滤器
+  ValidateCodeFilter:
+    pre:
+      disable: true
+  # 禁用 Resilience4j 限流过滤器
+  ResilienceLimiterFilter:
+    pre:
+      disable: true
+  # zuul rate限流配置
+  ratelimit:
+    # 使用Redis缓存流量度量数据
+    repository: redis
+    # 是否开启限流
+    enabled: true
+    # 默认全局配置
+    default-policy-list:
+        # 时间戳内限制的请求次数
+      - limit: 5
+        # 刷新窗口限制时间的请求超时时间
+        quota: 10
+        # 窗口限制时间（单位秒）
+        refresh-interval: 10
+    # 自定义配置
+    policy-list:
+      # 对应 zuul.routes.<key> 配置项
+      user-service:
+        - limit: 3
+          quota: 10
+          refresh-interval: 10
+
+
+
+
+
+# resilience4j 限流配置
+resilience4j:
+  # 限流器注册机
+  ratelimiter:
+    limiters:
+      # 名称为user的限速器
+      user:
+        # 限定时间内允许通行的请求个数
+        limitForPeriod: 2
+        # 限定时间（单位毫秒）
+        limitRefreshPeriod: 15000
+        # 超时时间（单位毫秒）
+        timeoutDuration: 1000

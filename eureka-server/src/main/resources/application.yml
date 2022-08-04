@@ -1,0 +1,26 @@
+spring:
+  application:
+    #服务名称，一个服务可以有多个实例
+    name: eureka-server
+
+#server:
+#  port: 5001
+
+eureka:
+  server:
+    #关闭Eureka的自我保护机制，如果在15分钟内85%以下的心跳检测失败了（生成环境往往是网络问题），它会在Eureka首页提示告警信息。
+    #这种情况不会移除心跳检测超时的服务，在本地环境为了及时更新服务注册信息，将其设为false，默认为true。
+    enable-self-preservation: false
+  client:
+    #是否将服务注册到服务治理中心，默认为true。
+    #在服务启动后，通过defaultZone地址发送服务注册请求，但是不会立马发送注册请求，而是延迟40秒后发送，防止服务注册中心还没启动
+    register-with-eureka: true
+    #取消服务获取，自身就是服务治理中心，不需要再拉取服务列表
+    fetch-registry: false
+    #服务注册地址，其他微服务通过这个地址在eureka服务中心上进行注册
+    service-url:
+      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka
+  instance:
+    #实例名称
+    hostname: localhost
+

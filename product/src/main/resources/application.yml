@@ -1,0 +1,24 @@
+spring:
+  application:
+    #服务名称
+    name: product
+
+eureka:
+  client:
+    #服务注册中心的地址
+    service-url:
+      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka/
+  instance:
+    #实例名称
+    hostname: localhost
+
+
+# actuator 服务监控配置
+management:
+  endpoints:
+    web:
+      exposure:
+        #配置暴露的端点，如果配置为 * ，则暴露所有 actuator 的健康监控端点
+        include: hystrix.stream,info,health
+        #不暴露的端点
+        exclude: env

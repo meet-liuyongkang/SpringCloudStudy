@@ -1,0 +1,25 @@
+spring:
+  application:
+    #服务名称
+    name: fund
+
+eureka:
+  client:
+    # 是否将服务注册到服务治理中心，默认为true。
+    # 在服务启动后，通过defaultZone地址发送服务注册请求，但是不会立马发送注册请求，而是延迟40秒后发送，防止服务注册中心还没启动
+    register-with-eureka: true
+    # 服务注册中心的地址
+    service-url:
+      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka/
+    # 是否从服务治理中心获取服务清单，一般实例都会从Eureka获取服务清单保存在本地，然后根据服务名称调用服务的时候，
+    # 就可以根据服务清单上服务对应的实例，来进行负载均衡。我们相对于eureka-server是客户端，所以称为客户端负载均衡，默认为true
+    fetch-registry: true
+    # 获取服务清单的间隔时间，默认30秒
+    registry-fetch-interval-seconds: 30
+  instance:
+    #实例名称
+    hostname: localhost
+    #服务实例超时失效时间，当超过该时间未发送心跳，Eureka会将该实例移除，默认90秒
+    lease-expiration-duration-in-seconds: 90
+    #间隔多长时间发送一次心跳，默认为30秒
+    lease-renewal-interval-in-seconds: 30
