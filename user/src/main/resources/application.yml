@@ -7,7 +7,7 @@ eureka:
   client:
     #服务注册中心的地址
     service-url:
-      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka/
+      defaultZone: http://eureka5001.com:5001/eureka/,http://eureka5002.com:5002/eureka/
   instance:
     #实例名称
     hostname: localhost

@@ -8,9 +8,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka
-  instance:
-    hostname: localhost
+      defaultZone: http://eureka5001.com:5001/eureka/,http://eureka5002.com:5002/eureka/
 
 #设置数据流的权限
 hystrix:

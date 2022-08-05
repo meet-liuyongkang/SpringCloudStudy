@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.gateway.filter.factory.RequestRateLimiterGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @date Create in 2022/8/1 10:38
  */
 @SpringBootApplication
+@EnableEurekaClient
 public class GatewayApplication {
 
     public static void main(String[] args) {

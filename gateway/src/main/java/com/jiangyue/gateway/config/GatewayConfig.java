@@ -21,10 +21,8 @@ public class GatewayConfig {
     @Autowired
     private CustomGatewayFilter customGatewayFilter;
 
-    @Bean
-    public RedisRateLimiter customRedisRateLimiter(){
-        return new RedisRateLimiter(1, 2);
-    }
+    @Autowired
+    private RedisRateLimiter redisRateLimiter;
 
 
     @Bean
@@ -76,23 +74,23 @@ public class GatewayConfig {
 //                        }))
 //                        .uri("http://localhost:6001"))
 //
-//                // hystrix 服务降级过滤器
-//                .route("hystrix-server", f -> f.path("/user/**")
-//                        .filters(filter -> filter.hystrix(hystrixConfig -> {
-//                            // hystrix 命令名称
-//                            hystrixConfig.setName("hystrix-cmd");
-//                            // 降级跳转url
-//                            hystrixConfig.setFallbackUri("forward:/gateway/fallBack");
-//                            // 设置 hystrix 参数
-////                            hystrixConfig.setSetter("xxx")
-//                        }))
-//                        .uri("http://localhost:6001"))
-//
-//
-//                // RequestRateLimiter 限流过滤器
+                // hystrix 服务降级过滤器
+                .route("hystrix-server", f -> f.path("/user/**")
+                        .filters(filter -> filter.hystrix(hystrixConfig -> {
+                            // hystrix 命令名称
+                            hystrixConfig.setName("hystrix-cmd");
+                            // 降级跳转url
+                            hystrixConfig.setFallbackUri("forward:/gateway/fallBack");
+                            // 设置 hystrix 参数
+//                            hystrixConfig.setSetter("xxx")
+                        }))
+                        .uri("lb://user"))
+
+
+                // RequestRateLimiter 限流过滤器
 //                .route("rateLimiter-server", f -> f.path("/user/**")
 //                        .filters(filter -> filter.requestRateLimiter(limiterConfig -> {
-//                            limiterConfig.setRateLimiter(customRedisRateLimiter());
+//                            limiterConfig.setRateLimiter(redisRateLimiter);
 //                        }))
 //                        .uri("http://localhost:6001"))
 

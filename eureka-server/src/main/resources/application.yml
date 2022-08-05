@@ -18,9 +18,9 @@ eureka:
     #取消服务获取，自身就是服务治理中心，不需要再拉取服务列表
     fetch-registry: false
     #服务注册地址，其他微服务通过这个地址在eureka服务中心上进行注册
-    service-url:
-      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka
-  instance:
-    #实例名称
-    hostname: localhost
+#    service-url:
+#      defaultZone: http://localhost:5001/eureka, http://localhost:5002/eureka
+#  instance:
+#    #实例名称 (eureka集群直接，每个服务器的实力名称不能一样，否则会出现节点间信息不同步的问题)
+#    hostname: localhost
 

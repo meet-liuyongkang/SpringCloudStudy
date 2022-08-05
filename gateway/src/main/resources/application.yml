@@ -8,8 +8,8 @@ spring:
       # 开始配置路由
       routes:
         - id: redisRateLimiter-server
-          # 转发路径
-          uri: http://localhost:6001
+          # 转发路径 http://localhost:6001 或者 lb://user (这是服务发现的方式，可以负载到不同的用户服务器)
+          uri: lb://user
           # 断言配置
           predicates:
             - Path=/user/**
@@ -23,7 +23,12 @@ spring:
                 redis-rate-limiter.burstCapacity: 2
                 # 新建令牌桶
                 key-resolver: "#{@pathKeyResolver}"
-
+      discovery:
+        locator:
+          # 是否启用服务发现
+          enabled: true
+          # 是否
+          lower-case-service-id: true
   redis:
     host: 192.168.99.101
     lettuce:
@@ -43,3 +48,9 @@ resilience4j:
         limitRefreshPeriod: 10000
         # 超时时间（单位毫秒）
         timeoutDuration: 1000
+
+eureka:
+  client:
+    #服务注册中心的地址
+    service-url:
+      defaultZone: http://localhost:5001/eureka,http://localhost:5002/eureka

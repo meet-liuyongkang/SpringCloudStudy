@@ -1,2 +1,9 @@
 server:
   port: 5002
+
+eureka:
+  instance:
+    hostname: eureka5002.com
+  client:
+    service-url:
+      defaultZone: http://eureka5001.com:5001/eureka/
