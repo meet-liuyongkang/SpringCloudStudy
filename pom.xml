@@ -16,6 +16,8 @@
         <module>dashboard</module>
         <module>zuul</module>
         <module>gateway</module>
+        <module>config-server</module>
+        <module>config-client</module>
     </modules>
     <packaging>pom</packaging>
 

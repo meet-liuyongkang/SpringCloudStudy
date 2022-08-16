@@ -1,0 +1,13 @@
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          # github 仓库的uri
+          uri:
+        native:
+          order:
+  application:
+    name: config-server
+server:
+  port: 4001
