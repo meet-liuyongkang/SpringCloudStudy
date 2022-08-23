@@ -2,12 +2,27 @@ spring:
   cloud:
     config:
       server:
-        git:
-          # github 仓库的uri
-          uri:
+        # git配置仓库
+#        git:
+#           # github 仓库的uri
+#          uri: https://github.com/meet-liuyongkang/SpringCloudStudy.git
+#          # git 用户名
+#          username: jiangyue
+#          # git 用户密码
+#          password: jiangyue-pass
+#          # git分支
+#          default-label: master
+#          # git仓库中，文件的路径
+#          search-paths: config-server/src/main/resources/git-config.properties,/myConfig
+        # 本地配置仓库
         native:
-          order:
+          # classpath 的目录
+          # search-locations: classpath:/shared
+          search-locations: file:/Users/liuyongkang/work/Spring-cloud-config/
   application:
     name: config-server
+  # 不使用git时，这个必须要配置，因为默认是git
+  profiles:
+    active: native
 server:
   port: 4001

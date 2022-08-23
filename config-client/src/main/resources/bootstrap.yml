@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: config-client
+  cloud:
+    config:
+      # 服务端的uri
+      uri: http://127.0.0.1:4001
+      # 是否支持快速失败
+      fail-fast: false
+      # git分支
+      # label: master
+  profiles:
+    # 配置版本号
+    active:
+      - v001

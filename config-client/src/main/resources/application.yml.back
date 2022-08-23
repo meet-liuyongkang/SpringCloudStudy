@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    config:
+      server:
+        # git配置仓库
+#        git:
+#           # github 仓库的uri
+#          uri: https://github.com/meet-liuyongkang/SpringCloudStudy.git
+#          # git分支
+#          default-label: master
+#          # 是否支持快速失败，此配置可以避免长时间连接不上git仓库，导致服务卡主的问题
+#          fail-fast: false
+            # 本地配置仓库
+spring.cloud.config.
+  application:
+    name: config-client
+  profiles:
+    active:
+      - v1
+server:
+  port: 8080
