@@ -94,6 +94,12 @@ public class UserFacadeImpl implements UserFacade{
         return Observable.create(onSubscribe);
     }
 
+    @Override
+    public ResultMessage sleuthHello(String name) {
+        String url = "http://user/user/sleuth/provider/hello/" + name;
+        return restTemplate.getForObject(url, ResultMessage.class);
+    }
+
     /**
      * 降级方法1
      * @return

@@ -32,4 +32,11 @@ public interface UserFacade {
 
     @HystrixCommand(fallbackMethod = "fallback2")
     Observable<ResultMessage> expCmd(String[] params);
+
+    /**
+     * sleuth 全链路追踪测试接口
+     * @param name
+     * @return
+     */
+    public ResultMessage sleuthHello(String name);
 }

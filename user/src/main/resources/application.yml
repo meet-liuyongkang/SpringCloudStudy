@@ -2,6 +2,22 @@ spring:
   application:
     #服务名称
     name: user
+  # sleuth 全链路追踪配置
+  sleuth:
+    # 取样配置
+    sampler:
+      # 取样比例，默认 0.1
+      probability: 1.0
+      # 每秒追踪10次
+      rate: 10
+  zipkin:
+    # zipkin 全链路追踪-取样数据收集服务器
+    base-url: http://127.0.0.1:9520
+  boot:
+    admin:
+      client:
+        # 服务器地址
+        url: http://127.0.0.1:9001
 
 eureka:
   client:
@@ -11,3 +27,10 @@ eureka:
   instance:
     #实例名称
     hostname: localhost
+
+# 服务监控，暴露的端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

@@ -16,6 +16,17 @@ spring:
         min-idle: 5
         # 最大闲置连接数
         max-idle: 8
+ # 全链路追踪配置
+  sleuth:
+    # 取样配置
+    sampler:
+      # 取样比例，默认0.1
+      probability: 1.0
+      # 每秒取样数量
+      rate: 10
+  # 全链路追踪-数据收集服务器
+  zipkin:
+    base-url: http://127.0.0.1:9520
 
 
 eureka:
@@ -40,6 +51,10 @@ zuul:
       # 配置请求拦截路径
       path: /f/**
       service-id: fund
+    product-service:
+      # 配置请求拦截路径
+      path: /p/**
+      service-id: product
   # 禁用 验证码校验过滤器
   ValidateCodeFilter:
     pre:
